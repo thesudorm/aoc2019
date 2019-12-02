@@ -5,25 +5,41 @@ import (
 	"fmt"
 	"os"
 	"log"
-	//"strconv"
+	"strconv"
+	//"io/ioutil"
 )
 
 func main(){
+	var data []int64
 
 	file, err := os.Open("day2.txt")
 	if err != nil {
 		log.Fatal(err);
 	}
 
-	//contents, err := ioutil.ReadAll(file)
+	/*
+	contents, err := ioutil.ReadAll(file)
+	if err != nil {
+		log.Fatal(err);
+	}
 
-	//var data []int64
-	//var value int64
+	fmt.Println(contents)
+	fmt.Println()
+	*/
 
 	input, err := csv.NewReader(file).ReadAll()
 
-	for _, item := range input {
-		//value = strconv.Atoi(item)
-		fmt.Println(item)
+	fmt.Println(input)
+	fmt.Println(len(input))
+	test := input[0]
+
+	for _, item := range test {
+		value, err := strconv.ParseInt(item, 10, 64)
+		if err != nil {
+			log.Fatal(err)
+		}
+		data = append(data, value)
 	}
+
+	fmt.Println(data)
 }
