@@ -30,7 +30,7 @@ func main(){
 	input, err := csv.NewReader(file).ReadAll()
 
 	fmt.Println(input)
-	fmt.Println(len(input))
+	fmt.Println(len(input[0]))
 	test := input[0]
 
 	for _, item := range test {
@@ -39,6 +39,24 @@ func main(){
 			log.Fatal(err)
 		}
 		data = append(data, value)
+	}
+
+	for i := 0; i < len(data) - 3; i += 4 {
+		firstValue := data[data[i + 1]]
+		secondValue := data[data[i + 2]]
+		position := data[i + 3]
+
+		if data[i] == 1 { // Add
+			data[position] = firstValue + secondValue
+		} else if data[i] == 2 { // Multiply
+			data[position] = firstValue * secondValue
+		} else if data[i] == 99 {
+			fmt.Println("Done")
+			break
+		} else {
+			fmt.Println(data[i])
+			log.Fatal("Something went wrong")
+		}
 	}
 
 	fmt.Println(data)
