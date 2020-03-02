@@ -9,9 +9,17 @@ fn main() {
 
     for line in reader.lines() {
         let line = line.expect("Failed to read line");
-        let line: u32 = line.trim().parse()
+        let mut fuel: u32 = line.trim().parse()
             .expect("Didn't read a number");
-        sum += (line / 3) - 2;
+
+        loop {
+            if fuel >= 6 {
+                fuel = (fuel / 3) - 2;
+                sum += fuel;
+            } else {
+                break;
+            }
+        }
     }
 
     println!("Sum: {}", sum);
